@@ -94,7 +94,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Note
                 fragment  = NotesDisplay.newInstance(NetworkDef.getListFoodUrl());
                 break;
             case HEALTH:
-                fragment  = NotesDisplay.newInstance(NetworkDef.getListFoodUrl());
+                fragment  = NotesDisplay.newInstance(NetworkDef.getListHealthUrl());
                 break;
         }
         if(fragment != null)    {
