@@ -1,0 +1,62 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.example.stiffme.helloworld.fragments.BottomBarFragment"
+    android:background="#ffffff">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:measureWithLargestChild="false"
+        android:background="#ffffff">
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tabFood"
+            android:layout_gravity="top|center"
+            android:layout_weight="1"
+            android:src="@drawable/food"
+            android:scaleType="fitCenter"
+            android:background="#ffffff"
+            android:layout_margin="10dp" />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tabHealth"
+            android:layout_gravity="bottom|center"
+            android:layout_weight="1"
+            android:src="@drawable/health"
+            android:scaleType="fitCenter"
+            android:background="#ffffff"
+            android:layout_margin="10dp" />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tabShopping"
+            android:layout_gravity="bottom|center"
+            android:layout_weight="1"
+            android:src="@drawable/shopping"
+            android:scaleType="fitCenter"
+            android:background="#ffffff"
+            android:layout_margin="10dp" />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tabSelf"
+            android:layout_gravity="bottom|center"
+            android:layout_weight="1"
+            android:src="@drawable/self"
+            android:scaleType="fitCenter"
+            android:background="#ffffff"
+            android:layout_margin="10dp" />
+    </LinearLayout>
+
+</FrameLayout>
