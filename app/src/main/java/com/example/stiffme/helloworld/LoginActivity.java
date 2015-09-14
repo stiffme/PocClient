@@ -73,7 +73,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         mLoginIcon.startAnimation(fade_in);
 
 
-        populateAutoComplete();
+        //populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -110,7 +110,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
-    private void populateAutoComplete() {
+    /*private void populateAutoComplete() {
         if (VERSION.SDK_INT >= 14) {
             // Use ContactsContract.Profile (API 14+)
             getLoaderManager().initLoader(0, null, this);
@@ -118,7 +118,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             // Use AccountManager (API 8+)
             new SetupEmailAutoCompleteTask().execute(null, null);
         }
-    }
+    }*/
 
 
     /**

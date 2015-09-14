@@ -27,7 +27,7 @@ public class NetworkDef {
     //hard code default IMPU is user select SIM SSO
     public static final String DefaultFakeImpu = "sip:UserName9000_0@ericsson.se";
 
-    private static final String ServerAddress = "http://192.168.1.2:10800";
+    private static final String ServerAddress = "http://pocserver.f3322.net:10800";
     private static final String ListFood = "/api/food";
     private static final String ListHealth = "/api/food";
     private static final String ListShopping = "/api/shopping";
