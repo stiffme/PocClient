@@ -10,20 +10,51 @@ import java.net.URL;
  * Created by stiffme on 2015/9/13.
  */
 public class NetworkDef {
+    /**
+     * Restful service interface
+     * GET /api/food|health get food info without SSO
+     * GET /api/food|health/$IMPU get food info with SSO
+     * POST /api/food|health/$IMPU add keyword
+     *
+     * GET /api/shopping redirect to frontpage
+     * GET /api/shopping/$IMPU redirect to frontpage using keywords of IMPU
+     *
+     * GET /api/keywords/$IMPU get all keywords of impu
+     * DELETE /api/keywords/$IMPU/food|health/keyword delete one keyword
+     * DELETE /api/keywords/$IMPU/food|health delete one category
+     * DELETE /api/keywords/$IMPU delete whole keywords!
+     */
+    //hard code default IMPU is user select SIM SSO
+    public static final String DefaultFakeImpu = "sip:UserName9000_0@ericsson.se";
+
     private static final String ServerAddress = "http://192.168.1.2:10800";
-    private static final String ListFood = "/test/food";
-    private static final String ListHealth = "/test/food";
+    private static final String ListFood = "/api/food";
+    private static final String ListHealth = "/api/food";
+    private static final String ListShopping = "/api/shopping";
 
     private static final String getCompleteUrlString(String path)  {
         return ServerAddress + path;
     }
 
-    public static String getListFoodUrl()   {
-        return getCompleteUrlString(ListFood);
+    public static String getListFoodUrl(String username, boolean sso)   {
+        if( !sso)
+            return getCompleteUrlString(ListFood);
+        else
+            return getCompleteUrlString(ListFood) + "/" + username;
     }
 
-    public static String getListHealthUrl()   {
-        return getCompleteUrlString(ListHealth);
+    public static String getListHealthUrl(String username, boolean sso)   {
+        if( !sso)
+            return getCompleteUrlString(ListHealth);
+        else
+            return getCompleteUrlString(ListHealth) + "/" + username;
+    }
+
+    public static String getShoppingUrl(String username, boolean sso)   {
+        if( !sso)
+            return getCompleteUrlString(ListShopping);
+        else
+            return getCompleteUrlString(ListShopping) + "/" + username;
     }
 
     public static String getImageUrl(String image)   {

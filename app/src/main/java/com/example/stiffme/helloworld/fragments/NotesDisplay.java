@@ -141,6 +141,7 @@ public class NotesDisplay extends Fragment {
         protected ArrayList<Note> doInBackground(String... params) {
             try{
                 URL url = new URL(mUrl);
+                Log.d("POC", mUrl);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setConnectTimeout(1 * 1000);
                 conn.setRequestMethod("GET");

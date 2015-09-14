@@ -14,15 +14,23 @@ import android.widget.ImageButton;
 
 import com.example.stiffme.helloworld.Datamodel.Note;
 import com.example.stiffme.helloworld.fragments.NotesDisplay;
+import com.example.stiffme.helloworld.fragments.ShoppingFramgment;
 import com.example.stiffme.helloworld.fragments.SinglenoteDisplay;
 
 enum TabType {FOOD,HEALTH,SHOPPING,SELF};
 
 public class MainActivity extends Activity implements View.OnClickListener, NotesDisplay.OnNotesDisplayListener {
+    public static final String ARG_USERNAME = "ARG_USERNAME";
+    public static final String ARG_SSO = "ARG_SSO";
 
     ImageButton mTabFood;
     ImageButton mTabHealth;
+    ImageButton mTabShopping;
     Fragment current;
+
+    String mUserName;
+    boolean mSSO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -32,11 +40,14 @@ public class MainActivity extends Activity implements View.OnClickListener, Note
         //get reference
         mTabFood = (ImageButton) findViewById(R.id.tabFood);
         mTabHealth = (ImageButton) findViewById(R.id.tabHealth);
+        mTabShopping = (ImageButton) findViewById(R.id.tabShopping);
 
         mTabFood.setOnClickListener(this);
         mTabHealth.setOnClickListener(this);
+        mTabShopping.setOnClickListener(this);
 
-
+        mUserName = getIntent().getStringExtra(ARG_USERNAME);
+        mSSO = getIntent().getBooleanExtra(ARG_SSO,false);
     }
 
     @Override
@@ -82,6 +93,9 @@ public class MainActivity extends Activity implements View.OnClickListener, Note
             case R.id.tabHealth:
                 showTabView(TabType.HEALTH);
                 break;
+            case R.id.tabShopping:
+                showTabView(TabType.SHOPPING);
+                break;
         }
     }
 
@@ -91,10 +105,13 @@ public class MainActivity extends Activity implements View.OnClickListener, Note
 
         switch (tabType) {
             case FOOD:
-                fragment  = NotesDisplay.newInstance(NetworkDef.getListFoodUrl());
+                fragment  = NotesDisplay.newInstance(NetworkDef.getListFoodUrl(mUserName,mSSO));
                 break;
             case HEALTH:
-                fragment  = NotesDisplay.newInstance(NetworkDef.getListHealthUrl());
+                fragment  = NotesDisplay.newInstance(NetworkDef.getListHealthUrl(mUserName,mSSO));
+                break;
+            case SHOPPING:
+                fragment = ShoppingFramgment.newInstance(NetworkDef.getShoppingUrl(mUserName,mSSO));
                 break;
         }
         if(fragment != null)    {
