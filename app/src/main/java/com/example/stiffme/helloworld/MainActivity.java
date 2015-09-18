@@ -5,7 +5,11 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +20,12 @@ import com.example.stiffme.helloworld.Datamodel.Note;
 import com.example.stiffme.helloworld.fragments.NotesDisplay;
 import com.example.stiffme.helloworld.fragments.ShoppingFramgment;
 import com.example.stiffme.helloworld.fragments.SinglenoteDisplay;
+
+import org.json.JSONArray;
+
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 enum TabType {FOOD,HEALTH,SHOPPING,SELF};
 
@@ -141,5 +151,42 @@ public class MainActivity extends Activity implements View.OnClickListener, Note
         tx.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         tx.commit();
 
+
+        //informs server of the keyword
+        if(mSSO)    {
+            Log.d("POC", "trying to update keywords to server");
+            JSONArray keywords = new JSONArray();
+            keywords.put(note.keyword);
+            String jsonString = keywords.toString();
+            PostTask post = new PostTask();
+            post.execute(NetworkDef.getPostUrl(mUserName),jsonString);
+        }
+    }
+
+    private class PostTask extends AsyncTask<String,Void,Void>  {
+
+        @Override
+        protected Void doInBackground(String... params) {
+            String urlString = params[0];
+            String json = params[1];
+            Log.d("POC", "POST url is " + urlString);
+            Log.d("POC", "POST json is " + json);
+            try{
+                URL url = new URL(urlString);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setConnectTimeout(1 * 1000);
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type","application/json");
+                byte[] jbytes = json.getBytes();
+                conn.getOutputStream().write(jbytes);
+                if(conn.getResponseCode() != 200) {
+                    Log.e("POC", "POST server data failed ");
+                }
+            } catch (Exception e)   {
+                Log.e("POC", "POST server data failed ", e);
+
+            }
+            return null;
+        }
     }
 }

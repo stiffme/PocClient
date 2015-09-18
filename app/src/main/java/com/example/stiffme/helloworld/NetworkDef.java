@@ -14,7 +14,7 @@ public class NetworkDef {
      * Restful service interface
      * GET /api/food|health get food info without SSO
      * GET /api/food|health/$IMPU get food info with SSO
-     * POST /api/food|health/$IMPU add keyword
+     * POST /api/$IMPU add keyword
      *
      * GET /api/shopping redirect to frontpage
      * GET /api/shopping/$IMPU redirect to frontpage using keywords of IMPU
@@ -25,11 +25,12 @@ public class NetworkDef {
      * DELETE /api/keywords/$IMPU delete whole keywords!
      */
     //hard code default IMPU is user select SIM SSO
-    public static final String DefaultFakeImpu = "sip:UserName9000_0@ericsson.se";
+    public static final String DefaultFakeImpu = "sip:UserName90000_0PublicID0@ericsson.se";
 
     private static final String ServerAddress = "http://pocserver.f3322.net:10800";
     private static final String ListFood = "/api/food";
     private static final String ListHealth = "/api/food";
+    private static final String PostKeyword = "/api";
     private static final String ListShopping = "/api/shopping";
 
     private static final String getCompleteUrlString(String path)  {
@@ -60,6 +61,8 @@ public class NetworkDef {
     public static String getImageUrl(String image)   {
         return getCompleteUrlString(image);
     }
+
+    public static String getPostUrl(String username)   { return getCompleteUrlString(PostKeyword) + "/" + username; }
 
     public static byte[] readStream(InputStream inputStream) throws Exception {
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
