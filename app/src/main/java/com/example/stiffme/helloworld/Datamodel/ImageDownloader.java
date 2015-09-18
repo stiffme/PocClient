@@ -16,7 +16,7 @@ import java.net.URL;
  * Created by stiffme on 2015/9/13.
  */
 public class ImageDownloader extends AsyncTask<NoteListViewHolder,Void,Bitmap> {
-    private static LruCache<String,Bitmap> cache = new LruCache<String,Bitmap>(1024*1024*8) {
+    public static LruCache<String,Bitmap> cache = new LruCache<String,Bitmap>(1024*1024*8) {
         @Override
         protected int sizeOf(String key, Bitmap value) {
             return value.getRowBytes() * value.getHeight();
@@ -33,6 +33,7 @@ public class ImageDownloader extends AsyncTask<NoteListViewHolder,Void,Bitmap> {
             if(cacheBit !=null)
                 return cacheBit;
             URL url = new URL(NetworkDef.getImageUrl(holder.note.img));
+            Log.d("POC", "downloading  " + mHolder.note.img);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(1 * 1000);
             conn.setRequestMethod("GET");
@@ -52,6 +53,7 @@ public class ImageDownloader extends AsyncTask<NoteListViewHolder,Void,Bitmap> {
     @Override
     protected void onPostExecute(Bitmap bitmap) {
         super.onPostExecute(bitmap);
-        mHolder.image.setImageBitmap(bitmap);
+        if(bitmap != null)
+            mHolder.image.setImageBitmap(bitmap);
     }
 }

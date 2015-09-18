@@ -1,5 +1,6 @@
 package com.example.stiffme.helloworld.Datamodel;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.stiffme.helloworld.NetworkDef;
@@ -29,35 +32,23 @@ import java.util.List;
 /**
  * Created by stiffme on 2015/9/13.
  */
-public class NoteListAdaptor extends BaseAdapter {
-
-    private LayoutInflater  mInflater;
+public class NoteListAdaptor extends ArrayAdapter<Note> {
     private List<Note> mData;
-    public NoteListAdaptor(Context context,List<Note> data) {
-        this.mInflater = LayoutInflater.from(context);
+    private Activity mContext;
+    public NoteListAdaptor(Activity context,List<Note> data) {
+        super(context,R.layout.note_display_layout,data);
         this.mData = data;
-    }
-    @Override
-    public int getCount() {
-        return mData.size();
+        mContext = context;
     }
 
-    @Override
-    public Object getItem(int position) {
-        return null;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         NoteListViewHolder holder;
         Note note = mData.get(position);
+        LayoutInflater inf = this.mContext.getLayoutInflater();
         if(convertView == null) {
-            convertView = mInflater.inflate(R.layout.note_display_layout,null);
+            convertView = inf.inflate(R.layout.note_display_layout,parent,false);
             holder = new NoteListViewHolder();
             holder.image = (ImageView)convertView.findViewById(R.id.noteImg);
             holder.head = (TextView)convertView.findViewById(R.id.noteHead);
@@ -68,8 +59,14 @@ public class NoteListAdaptor extends BaseAdapter {
         }
 
         holder.head.setText(note.head);
-        ImageDownloader downloader = new ImageDownloader();
-        downloader.execute(holder);
+        Bitmap bitmap = ImageDownloader.cache.get(holder.note.img);
+        if(bitmap == null)  {
+            ImageDownloader downloader = new ImageDownloader();
+            downloader.execute(holder);
+        } else{
+            holder.image.setImageBitmap(bitmap);
+        }
+
         return convertView;
     }
 
