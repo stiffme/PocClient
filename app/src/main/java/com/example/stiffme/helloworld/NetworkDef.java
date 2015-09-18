@@ -64,6 +64,10 @@ public class NetworkDef {
 
     public static String getPostUrl(String username)   { return getCompleteUrlString(PostKeyword) + "/" + username; }
 
+    public static String getListKeywordsUrl(String impu) { return getCompleteUrlString(PostKeyword) + "/" + impu;}
+
+    public static String deleteKeywordUrl(String impu,String keyword) {return getCompleteUrlString(PostKeyword) + "/" + impu + "/" + keyword; }
+
     public static byte[] readStream(InputStream inputStream) throws Exception {
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];

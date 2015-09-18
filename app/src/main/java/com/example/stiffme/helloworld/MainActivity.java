@@ -15,8 +15,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.stiffme.helloworld.Datamodel.Note;
+import com.example.stiffme.helloworld.fragments.KeywordFragment;
 import com.example.stiffme.helloworld.fragments.NotesDisplay;
 import com.example.stiffme.helloworld.fragments.ShoppingFramgment;
 import com.example.stiffme.helloworld.fragments.SinglenoteDisplay;
@@ -36,6 +38,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Note
     ImageButton mTabFood;
     ImageButton mTabHealth;
     ImageButton mTabShopping;
+    ImageButton mTabSelf;
     Fragment current;
 
     String mUserName;
@@ -51,10 +54,12 @@ public class MainActivity extends Activity implements View.OnClickListener, Note
         mTabFood = (ImageButton) findViewById(R.id.tabFood);
         mTabHealth = (ImageButton) findViewById(R.id.tabHealth);
         mTabShopping = (ImageButton) findViewById(R.id.tabShopping);
+        mTabSelf = (ImageButton) findViewById(R.id.tabSelf);
 
         mTabFood.setOnClickListener(this);
         mTabHealth.setOnClickListener(this);
         mTabShopping.setOnClickListener(this);
+        mTabSelf.setOnClickListener(this);
 
         mUserName = getIntent().getStringExtra(ARG_USERNAME);
         mSSO = getIntent().getBooleanExtra(ARG_SSO,false);
@@ -106,6 +111,14 @@ public class MainActivity extends Activity implements View.OnClickListener, Note
             case R.id.tabShopping:
                 showTabView(TabType.SHOPPING);
                 break;
+            case R.id.tabSelf:
+                if(mSSO == false)   {
+                    Toast.makeText(getApplicationContext(), "Keywords admin is only allowed when SSO",
+                            Toast.LENGTH_SHORT).show();
+                } else
+                    showTabView(TabType.SELF);
+
+                break;
         }
     }
 
@@ -122,6 +135,9 @@ public class MainActivity extends Activity implements View.OnClickListener, Note
                 break;
             case SHOPPING:
                 fragment = ShoppingFramgment.newInstance(NetworkDef.getShoppingUrl(mUserName,mSSO));
+                break;
+            case SELF:
+                fragment = KeywordFragment.newInstance(mUserName);
                 break;
         }
         if(fragment != null)    {

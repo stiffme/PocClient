@@ -56,6 +56,7 @@ public class NoteListAdaptor extends ArrayAdapter<Note> {
             convertView.setTag(holder);
         } else{
             holder = (NoteListViewHolder) convertView.getTag();
+            holder.note = note;
         }
 
         holder.head.setText(note.head);

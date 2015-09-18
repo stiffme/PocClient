@@ -2,6 +2,7 @@ package com.example.stiffme.helloworld.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -46,6 +47,7 @@ public class NotesDisplay extends Fragment {
     private String mUrl;
     private ListView mContentList;
     private OnNotesDisplayListener mListener;
+    private ProgressDialog mProgress;
 
     /**
      * Use this factory method to create a new instance of
@@ -92,6 +94,8 @@ public class NotesDisplay extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        mProgress = new ProgressDialog(this.getActivity());
+        mProgress.setMessage("Loading....");
         JsonHttpGetter getter = new JsonHttpGetter(this.getActivity());
         getter.execute(mUrl);
     }
@@ -170,6 +174,7 @@ public class NotesDisplay extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            mProgress.show();
         }
 
         @Override
@@ -188,6 +193,7 @@ public class NotesDisplay extends Fragment {
                         mListener.onSingleNoteClick(noteHolder.note);
                 }
             });
+            mProgress.dismiss();
         }
 
         @Override
