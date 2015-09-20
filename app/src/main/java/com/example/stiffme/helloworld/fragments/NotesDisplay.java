@@ -1,8 +1,10 @@
 package com.example.stiffme.helloworld.fragments;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,8 +13,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.stiffme.helloworld.Datamodel.NoteListAdaptor;
 import com.example.stiffme.helloworld.Datamodel.NoteListViewHolder;
@@ -20,6 +27,7 @@ import com.example.stiffme.helloworld.NetworkDef;
 
 import com.example.stiffme.helloworld.Datamodel.Note;
 import com.example.stiffme.helloworld.R;
+import com.example.stiffme.helloworld.controls.CustomLoading;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -47,7 +55,8 @@ public class NotesDisplay extends Fragment {
     private String mUrl;
     private ListView mContentList;
     private OnNotesDisplayListener mListener;
-    private ProgressDialog mProgress;
+    private Dialog mProgress;
+
 
     /**
      * Use this factory method to create a new instance of
@@ -94,8 +103,8 @@ public class NotesDisplay extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mProgress = new ProgressDialog(this.getActivity());
-        mProgress.setMessage("Loading....");
+        mProgress = CustomLoading.createLoadingDialog(this.getActivity(),"Loading....");
+        //mProgress.setMessage("Loading....");
         JsonHttpGetter getter = new JsonHttpGetter(this.getActivity());
         getter.execute(mUrl);
     }
@@ -206,5 +215,8 @@ public class NotesDisplay extends Fragment {
             super.onCancelled();
         }
     }
+
+
+
 
 }

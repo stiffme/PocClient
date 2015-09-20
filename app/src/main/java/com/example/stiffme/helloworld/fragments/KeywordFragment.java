@@ -2,6 +2,7 @@ package com.example.stiffme.helloworld.fragments;
 
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -24,6 +25,7 @@ import com.example.stiffme.helloworld.Datamodel.NoteListAdaptor;
 import com.example.stiffme.helloworld.Datamodel.NoteListViewHolder;
 import com.example.stiffme.helloworld.NetworkDef;
 import com.example.stiffme.helloworld.R;
+import com.example.stiffme.helloworld.controls.CustomLoading;
 import com.example.stiffme.helloworld.controls.SlideCutListView;
 
 import org.json.JSONArray;
@@ -45,7 +47,7 @@ public class KeywordFragment extends Fragment implements SlideCutListView.Remove
     private String mImpu;
     private SlideCutListView mListKeywords;
     private KeywordsAdapter mAdapter;
-    private ProgressDialog mProgress;
+    private Dialog mProgress;
 
     public static KeywordFragment newInstance(String impu) {
         KeywordFragment fragment = new KeywordFragment();
@@ -81,8 +83,8 @@ public class KeywordFragment extends Fragment implements SlideCutListView.Remove
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mProgress = new ProgressDialog(this.getActivity());
-        mProgress.setMessage("Loading...");
+        mProgress = CustomLoading.createLoadingDialog(this.getActivity(), "Loading....");
+        //mProgress.setMessage("Loading...");
         JsonHttpGetter getter = new JsonHttpGetter(this.getActivity());
         getter.execute();
     }
