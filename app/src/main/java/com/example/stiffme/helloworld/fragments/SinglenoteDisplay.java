@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.stiffme.helloworld.Datamodel.ImageDownloader;
 import com.example.stiffme.helloworld.Datamodel.Note;
 import com.example.stiffme.helloworld.Datamodel.NoteListAdaptor;
 import com.example.stiffme.helloworld.Datamodel.NoteListViewHolder;

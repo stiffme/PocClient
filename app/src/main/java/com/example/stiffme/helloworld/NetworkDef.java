@@ -68,6 +68,8 @@ public class NetworkDef {
 
     public static String deleteKeywordUrl(String impu,String keyword) {return getCompleteUrlString(PostKeyword) + "/" + impu + "/" + keyword; }
 
+    public static String deleteAllKeywordUrl(String impu) {return getCompleteUrlString(PostKeyword) + "/" + impu ; }
+
     public static byte[] readStream(InputStream inputStream) throws Exception {
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];

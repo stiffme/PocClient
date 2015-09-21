@@ -2,9 +2,9 @@ package com.example.stiffme.helloworld.fragments;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.graphics.Bitmap;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -12,23 +12,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.stiffme.helloworld.Datamodel.ImageDownloader;
-import com.example.stiffme.helloworld.Datamodel.Note;
-import com.example.stiffme.helloworld.Datamodel.NoteListAdaptor;
-import com.example.stiffme.helloworld.Datamodel.NoteListViewHolder;
 import com.example.stiffme.helloworld.NetworkDef;
 import com.example.stiffme.helloworld.R;
 import com.example.stiffme.helloworld.controls.CustomLoading;
 import com.example.stiffme.helloworld.controls.SlideCutListView;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.InputStream;
@@ -48,6 +41,7 @@ public class KeywordFragment extends Fragment implements SlideCutListView.Remove
     private SlideCutListView mListKeywords;
     private KeywordsAdapter mAdapter;
     private Dialog mProgress;
+    private Button mBtnRemoveAll;
 
     public static KeywordFragment newInstance(String impu) {
         KeywordFragment fragment = new KeywordFragment();
@@ -77,6 +71,33 @@ public class KeywordFragment extends Fragment implements SlideCutListView.Remove
         View view = inflater.inflate(R.layout.fragment_keyword, container, false);
         mListKeywords = (SlideCutListView)view.findViewById(R.id.list_keywords);
         mListKeywords.setRemoveListener(this);
+        mBtnRemoveAll = (Button)view.findViewById(R.id.btn_remove_all);
+        mBtnRemoveAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(KeywordFragment.this.getActivity());
+                builder.setMessage(R.string.confirm_delete_all);
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mAdapter.clear();
+                        JsonHttpDeleter deleter = new JsonHttpDeleter();
+                        deleter.execute();
+                    }
+                });
+
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                builder.show();
+
+            }
+        });
         return view;
     }
 
@@ -195,7 +216,14 @@ public class KeywordFragment extends Fragment implements SlideCutListView.Remove
         @Override
         protected Boolean doInBackground(String... params) {
             try{
-                URL url = new URL(NetworkDef.deleteKeywordUrl(mImpu,params[0]));
+                URL url;
+                if(params.length == 1)
+                    url = new URL(NetworkDef.deleteKeywordUrl(mImpu,params[0]));
+                else if(params.length == 0)
+                    url = new URL(NetworkDef.deleteAllKeywordUrl(mImpu));
+                else
+                    return false;
+
                 Log.d("POC", url.toString());
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setConnectTimeout(1 * 1000);

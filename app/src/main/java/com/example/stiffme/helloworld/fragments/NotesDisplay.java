@@ -3,9 +3,6 @@ package com.example.stiffme.helloworld.fragments;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -13,13 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.stiffme.helloworld.Datamodel.NoteListAdaptor;
 import com.example.stiffme.helloworld.Datamodel.NoteListViewHolder;
@@ -32,13 +24,10 @@ import com.example.stiffme.helloworld.controls.CustomLoading;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
