@@ -3,6 +3,7 @@ package com.example.stiffme.helloworld.fragments;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.example.stiffme.helloworld.Datamodel.Note;
 import com.example.stiffme.helloworld.Datamodel.NoteListAdaptor;
 import com.example.stiffme.helloworld.Datamodel.NoteListViewHolder;
 import com.example.stiffme.helloworld.R;
+import com.example.stiffme.helloworld.controls.URLImageParser;
 
 import java.util.ArrayList;
 
@@ -71,7 +73,7 @@ public class SinglenoteDisplay extends Fragment {
         data.add(mNote);
         NoteListAdaptor adaptor = new NoteListAdaptor(this.getActivity(),data);
         adaptor.getView(0,headerView,null);
-        content.setText(mNote.content);
+        content.setText(Html.fromHtml(mNote.content,new URLImageParser(content),null));
         return view;
     }
 

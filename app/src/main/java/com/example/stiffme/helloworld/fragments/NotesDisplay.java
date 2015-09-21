@@ -189,6 +189,7 @@ public class NotesDisplay extends Fragment {
         @Override
         protected void onPostExecute(ArrayList<Note> s) {
             super.onPostExecute(s);
+            mProgress.dismiss();
             if(s == null)
                 return;
 
@@ -196,13 +197,13 @@ public class NotesDisplay extends Fragment {
             mContentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    NoteListViewHolder noteHolder = (NoteListViewHolder)view.getTag();
+                    NoteListViewHolder noteHolder = (NoteListViewHolder) view.getTag();
                     Log.d("POC", noteHolder.note.img);
-                    if(mListener != null)
+                    if (mListener != null)
                         mListener.onSingleNoteClick(noteHolder.note);
                 }
             });
-            mProgress.dismiss();
+
         }
 
         @Override
