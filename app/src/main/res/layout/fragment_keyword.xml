@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <com.example.stiffme.helloworld.controls.SlideCutListView
         android:id="@+id/list_keywords"
@@ -13,13 +14,34 @@
         android:layout_weight="0.9">
     </com.example.stiffme.helloworld.controls.SlideCutListView>
 
-    <Button
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/text_btn_remove_all"
-        android:id="@+id/btn_remove_all"
-        android:layout_weight="0.05"
-        android:background="@color/button_material_light"
-        android:clickable="true"
-        android:enabled="true" />
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:weightSum="1">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/text_btn_log_out"
+            android:id="@+id/btn_log_out"
+            android:layout_weight="0.5"
+            android:background="@android:color/holo_purple"
+            android:clickable="true"
+            android:enabled="true"
+            android:layout_margin="8dp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/text_btn_remove_all"
+            android:id="@+id/btn_remove_all"
+            android:layout_weight="0.5"
+            android:background="@android:color/holo_red_light"
+            android:clickable="true"
+            android:enabled="true"
+            android:layout_margin="8dp" />
+    </LinearLayout>
+
 </LinearLayout>

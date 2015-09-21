@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -17,6 +18,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.stiffme.helloworld.LoginActivity;
+import com.example.stiffme.helloworld.MainActivity;
 import com.example.stiffme.helloworld.NetworkDef;
 import com.example.stiffme.helloworld.R;
 import com.example.stiffme.helloworld.controls.CustomLoading;
@@ -81,7 +84,9 @@ public class KeywordFragment extends Fragment implements SlideCutListView.Remove
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mAdapter.clear();
+
+                        if(mAdapter != null)
+                            mAdapter.clear();
                         JsonHttpDeleter deleter = new JsonHttpDeleter();
                         deleter.execute();
                     }
@@ -96,6 +101,17 @@ public class KeywordFragment extends Fragment implements SlideCutListView.Remove
 
                 builder.show();
 
+            }
+        });
+
+        Button mLogout = (Button)view.findViewById(R.id.btn_log_out);
+        mLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(KeywordFragment.this.getActivity(), LoginActivity.class);
+                KeywordFragment.this.getActivity().startActivity(intent);
+                KeywordFragment.this.getActivity().finish();
             }
         });
         return view;
@@ -166,11 +182,12 @@ public class KeywordFragment extends Fragment implements SlideCutListView.Remove
         @Override
         protected void onPostExecute(ArrayList<String> s) {
             super.onPostExecute(s);
+            mProgress.dismiss();
             if(s == null)
                 return;
             mAdapter = new KeywordsAdapter(mActivity,s);
             mListKeywords.setAdapter(mAdapter);
-            mProgress.dismiss();
+
         }
 
         @Override
