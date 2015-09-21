@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.example.stiffme.helloworld.controls.SlideCutListView
         android:id="@+id/list_keywords"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:listSelector="@android:color/transparent"
         android:divider="@drawable/reader_item_divider"
-        android:cacheColorHint="@android:color/transparent">
+        android:cacheColorHint="@android:color/transparent"
+        android:layout_weight="0.9">
     </com.example.stiffme.helloworld.controls.SlideCutListView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_btn_remove_all"
+        android:id="@+id/btn_remove_all"
+        android:layout_weight="0.05"
+        android:background="@color/button_material_light"
+        android:clickable="true"
+        android:enabled="true" />
 </LinearLayout>
