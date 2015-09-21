@@ -13,11 +13,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.stiffme.helloworld.datamodel.NoteListAdaptor;
-import com.example.stiffme.helloworld.datamodel.NoteListViewHolder;
+import com.example.stiffme.helloworld.Datamodel.NoteListAdaptor;
+import com.example.stiffme.helloworld.Datamodel.NoteListViewHolder;
 import com.example.stiffme.helloworld.NetworkDef;
 
-import com.example.stiffme.helloworld.datamodel.Note;
+import com.example.stiffme.helloworld.Datamodel.Note;
 import com.example.stiffme.helloworld.R;
 import com.example.stiffme.helloworld.controls.CustomLoading;
 
