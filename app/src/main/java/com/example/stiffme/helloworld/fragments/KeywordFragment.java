@@ -3,8 +3,6 @@ package com.example.stiffme.helloworld.fragments;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -12,23 +10,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.stiffme.helloworld.Datamodel.ImageDownloader;
-import com.example.stiffme.helloworld.Datamodel.Note;
-import com.example.stiffme.helloworld.Datamodel.NoteListAdaptor;
-import com.example.stiffme.helloworld.Datamodel.NoteListViewHolder;
 import com.example.stiffme.helloworld.NetworkDef;
 import com.example.stiffme.helloworld.R;
 import com.example.stiffme.helloworld.controls.CustomLoading;
 import com.example.stiffme.helloworld.controls.SlideCutListView;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.InputStream;

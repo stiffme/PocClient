@@ -5,8 +5,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +15,7 @@ import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.stiffme.helloworld.Datamodel.Note;
+import com.example.stiffme.helloworld.datamodel.Note;
 import com.example.stiffme.helloworld.fragments.KeywordFragment;
 import com.example.stiffme.helloworld.fragments.NotesDisplay;
 import com.example.stiffme.helloworld.fragments.ShoppingFramgment;
@@ -25,7 +23,6 @@ import com.example.stiffme.helloworld.fragments.SinglenoteDisplay;
 
 import org.json.JSONArray;
 
-import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
