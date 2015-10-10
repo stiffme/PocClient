@@ -29,7 +29,7 @@ public class NetworkDef {
 
     private static final String ServerAddress = "http://pocserver.f3322.net:10800";
     private static final String ListFood = "/api/food";
-    private static final String ListHealth = "/api/food";
+    private static final String ListHealth = "/api/health";
     private static final String PostKeyword = "/api";
     private static final String ListShopping = "/api/shopping";
 

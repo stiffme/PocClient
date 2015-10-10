@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -72,7 +73,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Note
         config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
         config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
         config.tasksProcessingOrder(QueueProcessingType.LIFO);
-        config.writeDebugLogs(); // Remove for release app
+        //config.writeDebugLogs(); // Remove for release app
 
         // Initialize ImageLoader with configuration.
         ImageLoader.getInstance().init(config.build());
@@ -128,6 +129,10 @@ public class MainActivity extends Activity implements View.OnClickListener, Note
                 if(mSSO == false)   {
                     Toast.makeText(getApplicationContext(), "Keywords admin is only allowed when SSO",
                             Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent();
+                    intent.setClass(this, LoginActivity.class);
+                    this.startActivity(intent);
+                    this.finish();
                 } else
                     showTabView(TabType.SELF);
 
@@ -185,7 +190,9 @@ public class MainActivity extends Activity implements View.OnClickListener, Note
         if(mSSO)    {
             Log.d("POC", "trying to update keywords to server");
             JSONArray keywords = new JSONArray();
-            keywords.put(note.keyword);
+            for(String k : note.keyword)
+                keywords.put(k);
+
             String jsonString = keywords.toString();
             Log.d("POC","post jsonString is " + jsonString);
             PostTask post = new PostTask();

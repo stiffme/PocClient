@@ -25,6 +25,7 @@ import com.example.stiffme.helloworld.R;
 import com.example.stiffme.helloworld.controls.CustomLoading;
 import com.example.stiffme.helloworld.controls.SlideCutListView;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.InputStream;
@@ -156,13 +157,11 @@ public class KeywordFragment extends Fragment implements SlideCutListView.Remove
                     byte[] data = NetworkDef.readStream(is);
                     String jsonStr = new String(data);
                     Log.d("POC",jsonStr);
-                    JSONObject jKeywords = new JSONObject(jsonStr);
+                    JSONArray jKeywords = new JSONArray(jsonStr);
                     ArrayList<String> keywords = new ArrayList<String> ();
-                    Iterator<String> it = jKeywords.keys();
-                    while(it.hasNext())   {
-                        String key = it.next();
-                        keywords.add(key);
-                    }
+
+                    for(int i =0 ; i < jKeywords.length(); i++)
+                        keywords.add(jKeywords.getString(i));
                     return keywords;
 
                 }
