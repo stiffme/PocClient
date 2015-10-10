@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import com.example.stiffme.helloworld.NetworkDef;
 import com.example.stiffme.helloworld.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -44,7 +46,7 @@ public class NoteListAdaptor extends ArrayAdapter<Note> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        NoteListViewHolder holder;
+        final NoteListViewHolder holder;
         Note note = mData.get(position);
         LayoutInflater inf = this.mContext.getLayoutInflater();
         if(convertView == null) {
@@ -60,14 +62,20 @@ public class NoteListAdaptor extends ArrayAdapter<Note> {
         }
 
         holder.head.setText(note.head);
+        /*
         Bitmap bitmap = ImageDownloader.cache.get(holder.note.img);
         if(bitmap == null)  {
             ImageDownloader downloader = new ImageDownloader();
             downloader.execute(holder);
         } else{
             holder.image.setImageBitmap(bitmap);
-        }
-
+        }*/
+        ImageLoader.getInstance().loadImage(NetworkDef.getImageUrl(note.img), new SimpleImageLoadingListener() {
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                holder.image.setImageBitmap(loadedImage);
+            }
+        });
         return convertView;
     }
 

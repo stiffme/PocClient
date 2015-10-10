@@ -187,6 +187,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Note
             JSONArray keywords = new JSONArray();
             keywords.put(note.keyword);
             String jsonString = keywords.toString();
+            Log.d("POC","post jsonString is " + jsonString);
             PostTask post = new PostTask();
             post.execute(NetworkDef.getPostUrl(mUserName),jsonString);
         }
