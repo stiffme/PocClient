@@ -37,9 +37,9 @@ public class MainActivity extends Activity implements View.OnClickListener, Note
     public static final String ARG_USERNAME = "ARG_USERNAME";
     public static final String ARG_SSO = "ARG_SSO";
 
-    ImageButton mTabFood;
-    ImageButton mTabHealth;
-    ImageButton mTabShopping;
+    ImageButton mContentTab;
+    //ImageButton mTabHealth;
+    //ImageButton mTabShopping;
     ImageButton mTabSelf;
     Fragment current;
 
@@ -53,14 +53,14 @@ public class MainActivity extends Activity implements View.OnClickListener, Note
         setContentView(R.layout.activity_main);
 
         //get reference
-        mTabFood = (ImageButton) findViewById(R.id.tabFood);
-        mTabHealth = (ImageButton) findViewById(R.id.tabHealth);
-        mTabShopping = (ImageButton) findViewById(R.id.tabShopping);
+        mContentTab = (ImageButton) findViewById(R.id.tabContentTab);
+       // mTabHealth = (ImageButton) findViewById(R.id.tabHealth);
+        //mTabShopping = (ImageButton) findViewById(R.id.tabShopping);
         mTabSelf = (ImageButton) findViewById(R.id.tabSelf);
 
-        mTabFood.setOnClickListener(this);
-        mTabHealth.setOnClickListener(this);
-        mTabShopping.setOnClickListener(this);
+        mContentTab.setOnClickListener(this);
+        //mTabHealth.setOnClickListener(this);
+        //mTabShopping.setOnClickListener(this);
         mTabSelf.setOnClickListener(this);
 
         mUserName = getIntent().getStringExtra(ARG_USERNAME);
@@ -83,7 +83,18 @@ public class MainActivity extends Activity implements View.OnClickListener, Note
     protected void onStart() {
         super.onStart();
         //start with food tab
-        showTabView(TabType.FOOD);
+        showTabView(getTabType());
+    }
+
+    private TabType getTabType()    {
+        String appName = getString(R.string.app_name);
+        if(appName.startsWith("Food"))
+            return TabType.FOOD;
+        if(appName.startsWith("Health"))
+            return TabType.HEALTH;
+        if(appName.startsWith("Shop"))
+            return TabType.SHOPPING;
+        return TabType.FOOD;
     }
 
     @Override
@@ -116,15 +127,15 @@ public class MainActivity extends Activity implements View.OnClickListener, Note
     public void onClick(View view) {
 
         switch (view.getId())   {
-            case R.id.tabFood:
-                showTabView(TabType.FOOD);
+            case R.id.tabContentTab:
+                showTabView(getTabType());
                 break;
-            case R.id.tabHealth:
+            /*case R.id.tabHealth:
                 showTabView(TabType.HEALTH);
-                break;
-            case R.id.tabShopping:
+                break;*/
+            /*case R.id.tabShopping:
                 showTabView(TabType.SHOPPING);
-                break;
+                break;*/
             case R.id.tabSelf:
                 if(mSSO == false)   {
                     Toast.makeText(getApplicationContext(), "Keywords admin is only allowed when SSO",

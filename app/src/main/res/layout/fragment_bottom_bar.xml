@@ -13,32 +13,32 @@
         android:measureWithLargestChild="false"
         android:background="#ffffff">
 
-        <ImageButton
+        <!-- <ImageButton
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/tabFood"
-            android:layout_gravity="top|center"
+            android:id="@+id/tabContentTab"
+            android:layout_gravity="bottom|center"
             android:layout_weight="1"
             android:src="@drawable/food"
             android:scaleType="fitCenter"
             android:background="#ffffff"
-            android:layout_margin="10dp" />
+            android:layout_margin="10dp" /> -->
 
-        <ImageButton
+        <!-- <ImageButton
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/tabHealth"
+            android:id="@+id/tabContentTab"
             android:layout_gravity="bottom|center"
             android:layout_weight="1"
             android:src="@drawable/health"
             android:scaleType="fitCenter"
             android:background="#ffffff"
-            android:layout_margin="10dp" />
+            android:layout_margin="10dp" />-->
 
         <ImageButton
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/tabShopping"
+            android:id="@+id/tabContentTab"
             android:layout_gravity="bottom|center"
             android:layout_weight="1"
             android:src="@drawable/shopping"

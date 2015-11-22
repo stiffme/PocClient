@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -38,7 +39,7 @@ public class Note {
             note.head = jsonObject.getString("head");
             note.content = jsonObject.getString("content");
             JSONArray keywordArray = jsonObject.getJSONArray("keyword");
-            Set<String> keyword = new ArraySet<String>();
+            Set<String> keyword = new HashSet<String>();
             for(int i =0; i < keywordArray.length(); i++)
                 keyword.add(keywordArray.getString(i));
             note.keyword = keyword;
